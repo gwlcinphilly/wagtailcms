@@ -1,4 +1,5 @@
 {% load static wagtailuserbar %}
+{% load bootstrap4 %}
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -23,6 +24,12 @@
 
         {# Global stylesheets #}
         <link rel="stylesheet" type="text/css" href="{% static 'css/cherryhill.css' %}">
+
+
+    <link rel="stylesheet" href="{% static 'contrib/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'contrib/font-awesome.min.css' %}">
+    <script src="{% static 'contrib/bootstrap.js' %}"></script>
+
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}

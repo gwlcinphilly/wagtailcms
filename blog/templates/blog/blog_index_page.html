@@ -1,30 +1,111 @@
 {% extends "base.html" %}
 
-{% load wagtailcore_tags %}
-{% load wagtailcore_tags wagtailimages_tags %}
-
-
-{% load wagtailuserbar %}
-
-{% block body_class %}template-blogindexpage{% endblock %}
+{% load wagtailcore_tags navigation_tags wagtailimages_tags %}
 
 {% block content %}
-    <h1>{{ page.title }}</h1>
-    <div class="intro">{{ page.intro|richtext }}</div>
+{% include "includes/header_index.html" %}
     
-    {% for post in blogpages %}
-        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-    
+{% load wagtailuserbar %}
 
-        {% with post.main_image as main_image %}
-            {% if main_image %}
-                {% image main_image fill-160x100 %}
-            {% endif %}
-        {% endwith %}
+<div class="container-fluid">
+     <div class="intro">
+        <h1> 
+            {{ date|date:"Y F"}}, 
+            <h3> There are {{count}} blog in this month. </h3>
+        </h1>
+    </div>
+</div>
+
+    <div class="container">
+    
+        {% if tag %}
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Viewing all blog posts by <span class="outline">{{ tag }}</span></p>
+                </div>
+            </div>
+        {% endif %}
+    
+        {% if page.get_child_tags %}
+            <ul class="blog-tags tags list-inline">
+                {% for tag in page.get_child_tags %}
+                    <li><a href="{{ tag.url }}">{{ tag }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         
         
-        {{ post.specific.date }}
-        {{ post.specific.body|richtext }}
-    {% endfor %}
+        <div class="row row-eq-height blog-list">
+            {% if blogpages %}
+                {% for blog in blogpages %}
+                    <li class="col-xs-12 col-sm-6 col-md-3 blog-list-item">
+                        <a href="{% pageurl blog %}">
+                            <div class="image">
+                                {% image blog.image fill-850x450-c50 as image %}
+                                <img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt }}" class="" />
+                            </div>
+                            <div class="text">
+                                <h2 class="blog-list-title">{{ blog.title }}</h2>
+                                <p>{{ blog.introduction|truncatewords:15 }}</p>
+                            </div>
+                            <div class="small footer">
+                                {% if blog.date_published %}
+                                    {{ blog.date_published }} by 
+                                {% endif %}
+                                {% for author in blog.authors %}
+                                    {{ author }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </div>
+                        </a>
+
+                    {% with blog.main_image as main_image %}
+                        {% if main_image %}
+                            {% image main_image fill-160x100 %}
+                        {% endif %}
+                    {% endwith %}
+
+                        {{ blog.specific.date }}
+                        {{ blog.specific.body|richtext }}
+                        
+                    </li>
+                    
+                {% endfor %}
+        <table class="table table-bordered table-hover">    
+            <thead>
+                <tr>
+                    <th scope="col">Sunday</th>
+                    <th scope="col">Monday</th>
+                    <th scope="col">Tuesday</th>
+                    <th scope="col">Wednesday</th>
+                    <th scope="col">Thursday</th>
+                    <th scope="col">Friday</th>
+                    <th scope="col">Saturday</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>{{monthcal|keyvalue:1}}</th>
+                    <th>{{monthdraw|keyvalue:1}}</th>
+                    <th>1</th>
+                    <th>1</th>
+                    <th>1</th>
+                    <th>1</th>
+                    <th>1</th>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+            {% else %}
+                 <div class="col-md-12">
+                    <p>Oh, snap. Looks like we were too busy baking to write any blog posts. Sorry.</p>
+                </div>
+            {% endif %}                    
+        </div>
+   
+    </div>
 
 {% endblock %}
+  
+

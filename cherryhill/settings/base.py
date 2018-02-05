@@ -18,7 +18,6 @@ import os
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -28,6 +27,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 INSTALLED_APPS = [
     'home',
     'search',
+    'cherryhill.base',
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
@@ -43,6 +43,9 @@ INSTALLED_APPS = [
 
     'modelcluster',
     'taggit',
+    'wagtailfontawesome',
+    'bootstrap4',
+    'wagtailmedia',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -97,8 +100,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -138,4 +139,13 @@ WAGTAIL_SITE_NAME = "cherryhill"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'http://example.com'
+BASE_URL = 'http://lifeinphilly.info'
+
+
+
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.wagtailsearch.backends.db',
+        'INDEX': 'cherryhill',
+    },
+}

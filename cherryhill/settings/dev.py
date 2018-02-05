@@ -14,7 +14,28 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ALLOWED_HOSTS = ['mirror','localhost']
 INSTALLED_APPS.append('blog')
 
+
 try:
     from .local import *
 except ImportError:
     pass
+'''
+
+
+DATABASES = {
+
+    'default': {
+        'ENGINE' : 'django.db.backends.mysql',
+        'NAME': 'home',
+        'USER': 'root',
+        'PASSWORD' : 'BPwdEI3Ij0mqzq9L',
+        'PORT' : '3306'
+        }
+}
+DATABASES['default']['HOST'] = '/cloudsql/cherryhill-190118:us-central1:home'
+
+if os.getenv('GAE_INSTANCE'):
+    pass
+else:
+    DATABASES['default']['HOST'] = '127.0.0.1'
+'''

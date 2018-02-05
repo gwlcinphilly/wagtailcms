@@ -1,0 +1,7 @@
+django
+django-bootstrap3
+mongoengine
+git+https://github.com/MongoEngine/django-mongoengine
+django-bootstrap3-datetimepicker
+https://github.com/sandlbn/django-bootstrap-calendar
+

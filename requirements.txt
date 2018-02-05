@@ -1,2 +1,5 @@
 Django>=1.11,<1.12
 wagtail>=1.13,<1.14
+wagtailfontawesome==1.0.6
+django-bootstrap4
+wagtailmedia

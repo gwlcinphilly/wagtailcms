@@ -1,8 +1,7 @@
 {
   "name": "cherryhill",
   "description": "This is test set for online version",
-  "scripts": {
-  },
+  "scripts": {"python manage.py runserver"
   "env": {
   },
   "formation": {
